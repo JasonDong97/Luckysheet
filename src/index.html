@@ -62,22 +62,35 @@
 			var isShare = luckysheetDemoUtil.getRequest().share; // '?share=1' opens the collaborative editing mode
 			var gridKey = luckysheetDemoUtil.getRequest().gridKey; // workbook id for collaborative editing, or directly define here
 			var options = null;
-
+			gridKey="1079500#-8803#7c45f52b7d01486d88bc53cb17dcd2c3"
 			if (isShare || gridKey) {
 				// http://localhost:3000/?gridKey=12eyy789-kk45ofid-23737245
-				if (!gridKey) {
-					alert('If gridKey is not provided in the address bar, please add it in the source code')
-				}
+				// if (!gridKey) {
+				// 	alert('If gridKey is not provided in the address bar, please add it in the source code')
+				// }
+				console.log("location.origin: ",location.origin)
 				options = {
 					container: "luckysheet",
 					lang: lang,
 					allowUpdate: true,
-					updateImageUrl: location.origin + "/luckysheet/api/updateImg",
-					updateUrl: "ws://" + location.host + "/luckysheet/websocket/luckysheet",
+					gridKey: gridKey,
+					loadUrl: location.origin + "/luckysheet/load",
+					loadSheetUrl: location.origin + "/luckysheet/loadsheet",
+					updateImageUrl: location.origin + "/luckysheet/updateImg",
+					updateUrl: "ws://" + location.host + "/luckysheet/websocket",
+				}
+
+				// luckysheet 原始后端 options 配置
+				/*options = {
+					container: "luckysheet",
+					lang: lang,
+					allowUpdate: true,
 					gridKey: gridKey,
 					loadUrl: location.origin + "/luckysheet/api/load",
-					loadSheetUrl: location.origin + "/luckysheet/api/loadsheet"
-				}
+					loadSheetUrl: location.origin + "/luckysheet/api/loadsheet",
+					updateImageUrl: location.origin + "/luckysheet/api/updateImg",
+					updateUrl: "ws://" + location.host + "/luckysheet/websocket/luckysheet",
+				}*/
 			} else {
 				// http://localhost:3000/
 				options = {
